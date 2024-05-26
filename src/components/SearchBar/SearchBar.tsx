@@ -1,9 +1,8 @@
 import './index.css'
 
-import { fetchMoviesFailure, fetchMoviesStart, fetchMoviesSuccess, resetMovies } from '../../store/movieSlicer';
+import { resetMovies, setSearchKey } from '../../store/movieSlicer';
 
 import React from 'react'
-import axios from 'axios';
 import { selectList } from '../../store/watchListSlicer';
 import { useDispatch } from 'react-redux';
 
@@ -26,14 +25,8 @@ function SearchBar(props: SearchBarProps = defaultProps) {
     async function handleSubmit() {
         dispatch(resetMovies());
         dispatch(selectList(null));
+        dispatch(setSearchKey(searchTerm || 'marvel'))
         setSearchTerm('');
-        dispatch(fetchMoviesStart());
-        try {
-          const response = await axios.get(`https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API}&s=${searchTerm || 'marvel'}`);
-          dispatch(fetchMoviesSuccess(response.data.Search || []));
-        } catch (error: any) {
-          dispatch(fetchMoviesFailure(error.message));
-        }
     }
 
   return (

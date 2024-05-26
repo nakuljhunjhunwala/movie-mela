@@ -24,7 +24,7 @@ interface MovieListProps {
 
 function MovieList(props: MovieListProps) {
     const dispatch = useDispatch();
-    const { movies, loading, page, error } = useSelector(
+    const { movies, loading, page, error, searchKey } = useSelector(
         (state: RootState) => state.movies
     );
     const { email } = useSelector((state: RootState) => state.login);
@@ -39,10 +39,11 @@ function MovieList(props: MovieListProps) {
         try {
             const response = await axios.get(
                 `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API
-                }&s=marvel&page=${page + 1}`
+                }&s=${searchKey}&page=${page + 1}`
             );
             if (response.data.Response === "False") {
                 setStopFetching(true);
+                dispatch(fetchMoviesFailure(response.data.Response));
             }
             dispatch(
                 fetchMoviesSuccess([...movies, ...(response.data?.Search || [])])
@@ -51,7 +52,7 @@ function MovieList(props: MovieListProps) {
             dispatch(fetchMoviesFailure(error.message));
             setStopFetching(true);
         }
-    }, [dispatch, movies, page]);
+    }, [dispatch, movies, page, searchKey]);
 
     const manageBookmark = (id: string) => {
         const movie = movies.find((movie) => movie.imdbID === id);
@@ -95,12 +96,25 @@ function MovieList(props: MovieListProps) {
             fetchDefaultMovies();
             setInitialLoad(false);
         }
-    }, [fetchDefaultMovies, initialLoad, props.movies]);
+
+    }, [fetchDefaultMovies, initialLoad, props.movies?.length]);
+
+    useEffect(() => {
+        if (props.movies?.length) {
+            return;
+        }
+        if (movies?.length === 0 && !error && !stopFetching) {
+            setInitialLoad(true);
+        }
+    }, [movies?.length, props.movies?.length, stopFetching]);
+
+
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting) {
+
                     if (initialLoad || loading || error || stopFetching) {
                         return;
                     }
@@ -139,6 +153,7 @@ function MovieList(props: MovieListProps) {
 
     useEffect(() => {
         setStopFetching(false);
+
     }, [movies?.length]);
 
     function checkIsBookmarked(watchList: RootWatchListItem, id: string) {

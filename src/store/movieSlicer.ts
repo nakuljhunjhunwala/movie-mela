@@ -7,6 +7,7 @@ interface MovieState {
   loading: boolean;
   error: string;
   page: number;
+  searchKey: string;
 }
 
 const initialState: MovieState = {
@@ -14,6 +15,7 @@ const initialState: MovieState = {
   loading: true,
   error: "",
   page: 0,
+  searchKey: "marvel",
 };
 
 const movieSlice = createSlice({
@@ -27,22 +29,27 @@ const movieSlice = createSlice({
       state.movies = action.payload;
       state.loading = false;
       state.error = "";
-        state.page += 1;
+      state.page += 1;
     },
     fetchMoviesFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
+      state.searchKey = "";
     },
     resetMovies: (state) => {
         state.movies = [];
         state.loading = true;
         state.error = "";
         state.page = 0;
-    }
+        state.searchKey = "marvel";
+    },
+    setSearchKey: (state, action: PayloadAction<string>) => {
+        state.searchKey = action.payload;
+    },
   },
 });
 
-export const { fetchMoviesStart, fetchMoviesSuccess, fetchMoviesFailure, resetMovies } =
+export const { fetchMoviesStart, fetchMoviesSuccess, fetchMoviesFailure, resetMovies, setSearchKey } =
   movieSlice.actions;
 
 export default movieSlice.reducer;

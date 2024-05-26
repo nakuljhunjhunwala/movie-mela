@@ -64,6 +64,7 @@ function Home() {
         <div className="mm-home-container-home"
           onClick={() => {
             dispatch(selectList(null));
+            dispatch(resetMovies());
           }}
         >
           Home
