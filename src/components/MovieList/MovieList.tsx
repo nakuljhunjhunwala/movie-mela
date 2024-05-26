@@ -38,7 +38,7 @@ function MovieList(props: MovieListProps) {
         dispatch(fetchMoviesStart());
         try {
             const response = await axios.get(
-                `http://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API
+                `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API
                 }&s=marvel&page=${page + 1}`
             );
             if (response.data.Response === "False") {

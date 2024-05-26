@@ -29,7 +29,7 @@ function SearchBar(props: SearchBarProps = defaultProps) {
         setSearchTerm('');
         dispatch(fetchMoviesStart());
         try {
-          const response = await axios.get(`http://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API}&s=${searchTerm || 'marvel'}`);
+          const response = await axios.get(`https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API}&s=${searchTerm || 'marvel'}`);
           dispatch(fetchMoviesSuccess(response.data.Search || []));
         } catch (error: any) {
           dispatch(fetchMoviesFailure(error.message));
