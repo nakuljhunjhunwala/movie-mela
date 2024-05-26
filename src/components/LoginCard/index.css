@@ -1,0 +1,79 @@
+.mm--login-card--container{
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    min-height: 400px;
+    max-height: 40%;
+    min-width: 600px;
+    max-width: 60%;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.mm--login-card--form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.mm-login-card--form-title{
+    font-size: 2rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.mm--login-card--form-email{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #000000;
+    font-size: 1rem;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+
+.mm-login-card--form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    height: 90%;
+    width: 90%;
+}
+
+.mm--login-card--form-submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    background: #000000;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.mm--login-card--form-submit:hover{
+    background: #c74848;
+    color: #FFFFFF;
+}
+
+.mm--login-card--form-submit:disabled{
+opacity: 0.5;
+cursor: not-allowed;
+background: #000000;
+}
