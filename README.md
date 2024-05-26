@@ -45,6 +45,9 @@ The OMDb API is used to fetch movie data. Ensure you have an API key from OMDb a
 ## Responsive Design
 The application is not designed to be responsive and works well on desktop devices only.
 
+## Deployed Project Link
+https://moviemela-nakul.netlify.app/login
+
 ## License
 This project is licensed under the MIT License.
 
